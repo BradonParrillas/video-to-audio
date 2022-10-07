@@ -21,18 +21,17 @@ def importar_videos():
 def convertir_videos():
     for video in videos:
         video_path = dir_path + video
-        print("Direccion del video: " + video_path)
         audio_path = output_dir_path + extraer_nombre(video) + '.mp3'
-        print("Direccion del audio: "+ audio_path)
         try:
             video_file_Clip = VideoFileClip(video_path)
-            print("\tSe importo el video: ", video)
         except Exception as e:
             print(e)
             print("No se pudo importar el video\nPosiblemente el video esta corrupto o no tiene imagen")
         else:
+            print(video)
             audio = video_file_Clip.audio
             audio.write_audiofile(audio_path)
+            print("\n")
 
 if(path.isdir(dir_path)):
     importar_videos()
