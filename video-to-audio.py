@@ -2,7 +2,7 @@ from moviepy.editor import VideoFileClip
 from os import listdir
 
 dir_path = r'./videos/'
-output_dir_path = r'./audio/'
+output_dir_path = r'./audios/'
 file_extension = '.mp4'
 videos = []
 
@@ -14,12 +14,22 @@ def importar_videos():
             videos.append(file)
 
 def convertir_videos():
-    print(dir_path + videos[0])
-    # for video in videos:
-    #     video_file_Clip = VideoFileClip(dir_path + video)
-    #     audio = video_file_Clip.audio
-    #     audio.write_audiofile(output_dir_path + video + '.mp3')
+    for video in videos:
+        video_path = dir_path + video
+        print("Direccion del video: " + video_path)
+        audio_path = output_dir_path + video + '.mp3'
+        print("Direccion del audio: "+ audio_path)
+        try:
+            video_file_Clip = VideoFileClip(video_path)
+            print("\tSe importo el video: ", video)
+        except Exception as e:
+            print(e)
+            print("No se pudo importar el video\nPosiblemente el video esta corrupto o no tiene imagen")
+        else:
+            audio = video_file_Clip.audio
+            audio.write_audiofile(audio_path)
 
 importar_videos()
+print("Lista de videos:")
 print(videos)
 convertir_videos()
