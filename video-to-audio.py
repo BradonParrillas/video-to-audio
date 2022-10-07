@@ -1,10 +1,15 @@
 from moviepy.editor import VideoFileClip
 from os import listdir
+from os import path
 
 dir_path = r'./videos/'
 output_dir_path = r'./audios/'
 file_extension = '.mp4'
 videos = []
+
+def extraer_nombre(text):
+    return text.split('.')[0]
+
 
 def importar_videos():
     #recorremos todos los archivos dentro del directorio que contiene dir_path
@@ -17,7 +22,7 @@ def convertir_videos():
     for video in videos:
         video_path = dir_path + video
         print("Direccion del video: " + video_path)
-        audio_path = output_dir_path + video + '.mp3'
+        audio_path = output_dir_path + extraer_nombre(video) + '.mp3'
         print("Direccion del audio: "+ audio_path)
         try:
             video_file_Clip = VideoFileClip(video_path)
@@ -29,7 +34,13 @@ def convertir_videos():
             audio = video_file_Clip.audio
             audio.write_audiofile(audio_path)
 
-importar_videos()
-print("Lista de videos:")
-print(videos)
-convertir_videos()
+if(path.isdir(dir_path)):
+    importar_videos()
+    print("Lista de videos:")
+    print(videos)
+    if(path.isdir(output_dir_path)):
+        convertir_videos()
+    else:
+        print("No se encontro el directiorio de audio")
+else:
+    print("No se encontro el directorio de los videos")
