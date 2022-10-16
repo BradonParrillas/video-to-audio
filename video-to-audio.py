@@ -17,6 +17,7 @@ def importar_videos():
         #guardamos en al lista de videos los archivos tipo file_extension
         if file.endswith(file_extension):
             videos.append(file)
+            print("\t" + str(file))
 
 def convertir_videos():
     for video in videos:
@@ -34,9 +35,9 @@ def convertir_videos():
             print("\n")
 
 if(path.isdir(dir_path)):
-    importar_videos()
     print("Lista de videos:")
-    print(videos)
+    importar_videos()
+    print("\nConvirtiendo videos:\n")
     if(path.isdir(output_dir_path)):
         convertir_videos()
     else:
